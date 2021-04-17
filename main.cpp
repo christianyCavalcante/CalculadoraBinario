@@ -63,8 +63,7 @@ string subtracao(string numero1, string numero2){
     string completemento2 = soma(complemento1, "1");
     
 
-    string resultadoPacial = soma(numero1,completemento2);
-    cout<<"resultadoPacial"<<resultadoPacial<<endl;
+    string resultadoPacial = soma(numero1,completemento2);    
 
     if(resultadoPacial.length()>1){
       return  sinal + resultadoPacial.substr (1,resultadoPacial.length()); 
@@ -79,7 +78,27 @@ string divisao(string numero1, string numero2){
 }
 
 string multicacao(string numero1, string numero2){
-   return  "multicacao\n";
+  string paciais[numero2.length()];
+
+   
+    string completarZeros = "";
+    for(int j = numero2.length()-1; j >= 0 ; j--){
+      string parcial= "";
+      for(int i = numero1.length()-1; i >= 0; i--){
+        int r = (numero1[i] - '0') * (numero2[j] - '0') ;        
+        parcial = char(r + '0') + parcial;       
+      }
+      paciais[j]= parcial+completarZeros;
+      completarZeros+="0";
+    
+  }
+
+  string somaParciais = "0";
+  for(int j = numero2.length()- 1; j>=0 ; j--){    
+    somaParciais = soma(somaParciais, paciais[j]);
+  }
+
+   return somaParciais;
 }
 
 string  modulo(string numero1, string numero2){
