@@ -1,15 +1,85 @@
 #include <iostream>
-
+#include <stdio.h>
 
 using namespace std;
 
+
+void validarBinario(char numero){
+  if(numero != '0' && numero != '1'){
+      cout << "NÚMERO NAO BINARIO INFORMADO"<<endl;
+      exit (EXIT_FAILURE);
+    }
+}
+
+
 string soma(string numero1, string numero2){
-   return "soma\n";   
+  
+    string result = ""; 
+    int s = 0;         
+    int tam1 = numero1.size() - 1, tam2 = numero2.size() - 1;
+    while (tam1 >= 0 || tam2 >= 0 || s == 1)
+    {
+        
+      if(tam1 >= 0){
+        validarBinario(numero1[tam1]);
+        s += numero1[tam1]- '0';
+      }
+
+      if(tam2 >= 0){
+        validarBinario(numero2[tam2]);
+        s += numero2[tam2]- '0';
+      }  
+       
+      result = char(s % 2 + '0') + result;
+      s /= 2;
+  
+        
+      tam1--; tam2--;
+    }
+    return result;
 }
 
 string subtracao(string numero1, string numero2){
-   return  "subtracao\n";
-}
+    string result = ""; 
+    int s = 0;         
+    int tam1 = numero1.size() - 1, tam2 = numero2.size() - 1;
+    while (tam1 >= 0 || tam2 >= 0)
+    {
+        
+      if(tam1 >= 0){
+        validarBinario(numero1[tam1]);
+        s += numero1[tam1]- '0';
+      }
+
+      if(tam2 >= 0){
+        validarBinario(numero2[tam2]);
+        s -= numero2[tam2]- '0';
+      }
+
+    
+
+    if(s==-1){
+      
+      if(tam1 == 0 && tam2 == 0){
+        result = "-1" + result;
+      }else{
+        result = "1" + result;
+      }
+      
+    }else{    
+      
+      result = char(s + '0') + result;
+      s = 0;
+    }
+  
+  
+  
+    
+        
+      tam1--; tam2--;
+    }
+    return result;
+    }
 
 string divisao(string numero1, string numero2){
    return  "divisao\n";
@@ -25,6 +95,8 @@ string  modulo(string numero1, string numero2){
 
 
 int main() {
+  // int i = -1;
+  // cout<<i<<endl;
   char operacao;
   string numero1;
   string numero2;
@@ -55,7 +127,9 @@ int main() {
     }
 
     
-cout << resultado;
-
+  cout << resultado<<endl;
+ 
+return 0;
 }
+
 
