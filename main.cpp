@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 
+
 using namespace std;
 
 
@@ -11,9 +12,25 @@ void validarBinario(char numero){
     }
 }
 
+void completarComZeros(string& numero1, string& numero2){
+  //unificar o tamnho das string, adicionando zeros a frente
+    while(numero1.length() != numero2.length()){      
+      if(numero1.length()> numero2.length()){
+        numero2 = "0" +numero2;
+      }else{
+        numero1 = "0" +numero1;
+      }
+
+    }    
+}
+bool ehMaior(string numero1, string numero2){
+    //completar com zeros para comparar as strings
+    completarComZeros(numero1,numero2);    
+    return numero1 >numero2;
+}
 
 string soma(string numero1, string numero2){
-  
+    completarComZeros(numero1,numero2);  
     string result = ""; 
     int s = 0;         
     int tam1 = numero1.size() - 1, tam2 = numero2.size() - 1;
@@ -43,11 +60,13 @@ string soma(string numero1, string numero2){
 string subtracao(string numero1, string numero2){
     numero1 = "0"+numero1;
     numero2 = "0"+numero2;
+    completarComZeros(numero1,numero2);    
+
     string sinal = "";
 
   //se o numero2 for maior, o resultado será negativo.
   //Como o metodo de complemento de dois não suporta essa operação, inverto os valores e acrescento o sinal ao resultado final;
-    if(numero2 > numero1){
+    if(ehMaior(numero2, numero1)){
       string aux = numero1;
       numero1 = numero2;
       numero2 = aux;
@@ -74,7 +93,18 @@ string subtracao(string numero1, string numero2){
 }
 
 string divisao(string numero1, string numero2){
-   return  "divisao\n";
+   
+   string result = "0";
+   string  parcial = numero1;
+   while(ehMaior(parcial,"0")){
+
+    parcial = subtracao(parcial, numero2);
+
+    cout<<"parcial"<<parcial<<endl;
+    result = soma(result, "1");
+   }
+   
+   return result;
 }
 
 string multicacao(string numero1, string numero2){
@@ -107,6 +137,8 @@ string  modulo(string numero1, string numero2){
 
 
 int main() {
+  
+
   // int i = -1;
   // cout<<i<<endl;
   char operacao;
