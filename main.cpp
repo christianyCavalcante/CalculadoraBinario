@@ -29,6 +29,12 @@ bool ehMaior(string numero1, string numero2){
     return numero1 >numero2;
 }
 
+bool ehMaiorOuIgual(string numero1, string numero2){
+    //completar com zeros para comparar as strings
+    completarComZeros(numero1,numero2);    
+    return numero1 >= numero2;
+}
+
 string soma(string numero1, string numero2){
     completarComZeros(numero1,numero2);  
     string result = ""; 
@@ -92,18 +98,20 @@ string subtracao(string numero1, string numero2){
 
 }
 
-string divisao(string numero1, string numero2){
+string divisao(string numero1, string numero2, string& modulo){
    
    string result = "0";
    string  parcial = numero1;
-   while(ehMaior(parcial,"0")){
-
+   
+   while(ehMaior(parcial,"0")  && ehMaiorOuIgual(parcial,numero2)){
+    
+    
     parcial = subtracao(parcial, numero2);
-
-    cout<<"parcial"<<parcial<<endl;
+    
     result = soma(result, "1");
    }
    
+   modulo = parcial;
    return result;
 }
 
@@ -132,7 +140,9 @@ string multicacao(string numero1, string numero2){
 }
 
 string  modulo(string numero1, string numero2){
-   return  "modulo\n";
+  string mod;
+  divisao(numero1,numero2,mod);
+   return  mod;
 }
 
 
@@ -145,6 +155,7 @@ int main() {
   string numero1;
   string numero2;
   string resultado;
+  string mod;
   
     cin >> operacao;
     cin >> numero1;
@@ -158,7 +169,7 @@ int main() {
         resultado = subtracao(numero1, numero2);
         break;
       case '/':
-        resultado = divisao(numero1, numero2);
+        resultado = divisao(numero1, numero2,mod);
         break;
       case '*':
         resultado = multicacao(numero1, numero2);
